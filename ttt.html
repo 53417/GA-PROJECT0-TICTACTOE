@@ -1,0 +1,62 @@
+<!doctype html>
+
+<html lang="en">
+
+    <head>
+    <meta charset="utf-8">
+    <title></title>
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+        crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="ttt.css">
+    <script src="ttt.js"></script>
+    </head>
+
+    <body>
+
+        <h1>Tic Tac Toe</h1>
+
+        <nav>
+            <a>Instructions</a>
+            <a>Settings</a>
+        </nav>
+        
+        <div id="settings">
+            <label>Game Settings</label>
+            <br>
+            <input id="input-player1-name" type="text" placeholder="Player 1 Name"/>
+            <input id="input-player2-name" type="text" placeholder="Player 2 Name"/>
+            <br>
+            <input id="input-rows" type="number" placeholder="rows"/>
+            <input id="input-columns" type="number" placeholder="columns"/>
+            <br>
+            <input id="input-wincond" type="number" placeholder="first to"/>
+            <br>
+            <button id="start-game">Start Game</button>
+            <button id="reset">Reset</button>
+        </div>
+
+        <table id="game-board" class="game-board">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>8</td>
+                <td>9</td>
+            </tr>
+        </table>
+
+
+    </body>
+
+</html>

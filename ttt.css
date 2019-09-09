@@ -1,0 +1,10 @@
+.game-board{
+    border: 1px solid black;
+    width: 50%;
+    text-align: center;
+    height: 500px;
+}
+
+td, tr {
+    border: 1px solid black;
+}
