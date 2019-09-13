@@ -1,14 +1,19 @@
 let boardData = [];
 let column = 0;
 let row = 0;
-let winCondition = 3;
+let winCondition = 0;
+let turn = 1
 
 //generator
-function gameStart(columns, rows) {
-  var arr = [];
-  var count = 0;
+function gameStart() {
+	let columns = document.getElementById('input-columns').value;
+	let rows = document.getElementById('input-rows').value;
+	let winConditions = document.getElementById('input-wincond').value;
+	var arr = [];
+	var count = 0;
 	column = columns;
-	row = rows;
+    row = rows;
+    winCondition = winConditions;
 
   for (var i = 0; i < rows; i++) {
     arr[i] = [];
@@ -17,7 +22,7 @@ function gameStart(columns, rows) {
       arr[i].push(count);
       boardData[boardData.length] = {ID: count, RID: i + 1, CID: y + 1, PLAYER: 0}
     }
-    console.log(arr[i])
+    //console.log(arr[i])
   }
   return 
 };
@@ -146,32 +151,80 @@ function winCheck(cid) {
 	return console.log('no winner')
 };
 
+function gameStartHtml() {
+    let count = 1;
+    let gx = 1;
+    let gy = 1;
+	document.getElementById("game-board").innerHTML = "";
+	let tempTable = '<table class="game-board">';
+    for(let y = 0; y < row; y++) {
+		tempTable += `<tr id="row${gy}">`;
+        for (var x = 0; x < column; x++) {
+			tempTable += `<td id="cell${count}" style="width:${100/column}%;height:${100/row}%" class="game-cell">${count}<\/td>`;
+            count = count + 1;
+		};
+		tempTable += '<\/tr>';
+        gy = gy + 1;
+	};
+	tempTable += '<\/table>';
+	document.getElementById('game-board').innerHTML = tempTable;
+	$(".game-board-box").css("height", $(".game-board-box").width());
+};
+
+function cellClick(i){
+	return function(){
+		console.log(`you clicked ${i}`);
+		let tCell = `cell${i}`;
+		if(turn === 1) {
+			document.getElementById('cell'+i).innerHTML = "X";
+			boardData[i-1].PLAYER = "X";
+			winCheck(i-1);
+			turn = 2;
+			return console.log(turn);
+		};
+		if (turn === 2) {
+			document.getElementById('cell'+i).innerHTML = "O";
+			boardData[i-1].PLAYER = "O";
+			winCheck(i-1);
+			turn = 1;
+			return console.log(turn);
+		}
+	}
+};
 
 $(document).ready(function(){  
+	$("#set-p1-button").click(function(){  
+//		$("#set-p1-icon-page").slideToggle();
+		$("#set-p1-icon-button").css("display", "none");
+		console.log("clicked");
+	});
+});  
 
-$("#start-game").click(function(){
-    document.getElementById("game-board").innerHTML = "";
-    let columns = document.getElementById('input-columns').value;
-    let rows = document.getElementById('input-rows').value;
-    gameStart(columns, rows);
-
+$(document).ready(function(){  
+	//start game button on click
+	$("#start-game").click(function(){
+		boardData = [];
+		document.getElementById("game-board").innerHTML = "";
+		gameStart();
+		gameStartHtml();
+		console.log(boardData);
+		for(var i = 1; i < boardData.length + 1; i++) {
+			$('#cell' + i).click( cellClick(i) );
+		};
+	});
 });
-});
-/*
-for (var y = 0; y < rows; y++) {
-    arr[y] = [];
-    for (var x = 0; x < columns; x++) {
-      count = count + 1;
-      arr[y].push(count);
-      boardData[boardData.length] = {ID: count, RID: y + 1, CID: x + 1, PLAYER: 0}
-    }
-*/
 
-function displayHistory() {
-    let count = 0;
-	document.getElementById("game-board").innerHTML = "";
-    for(let y = 0; y < rows; y++) {
-        document.createElement('tr').innerhtml = `${flipHistory[i][0]} \t ${flipHistory[i][1]} \t ${flipHistory[i][2]} \t ${flipHistory[i][3]}`;
-        document.getElementById("history-table").append(document.createElement('li'))
-    }
-}
+$(document).ready(function(){  
+	$("#reset").click(function(){
+		console.clear();
+		boardData = [];
+		document.getElementById("game-board").innerHTML = "";
+		gameStart();
+		gameStartHtml();
+		console.log(boardData);
+		for(var i = 1; i < boardData.length + 1; i++) {
+			$('#cell' + i).click( cellClick(i) );
+		};
+	});
+});
+//end doc ready functions
