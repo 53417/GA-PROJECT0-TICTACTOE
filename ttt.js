@@ -244,25 +244,25 @@ function updateDisplay() {
 	if(turn === 2) {
 		return document.getElementById("player-scores").innerHTML =
 			`<a id="p1-score" class="player-icons">${p1Score}</a>
-			<a id="p1-icon" class="player-icons fas ${p1IconPic} ${p1IconColor}"></a>
+			<i id="p1-icon" class="player-icons fas ${p1IconPic} ${p1IconColor}"></i>
 			<a class="player-icons">|</a>
-			<a id="p2-icon" class="player-icons fas ${p2IconPic} ${p2IconColor}"></a>
+			<i id="p2-icon" class="player-icons fas ${p2IconPic} ${p2IconColor}"></i>
 			<a id="p2-score" class="player-icons" style="background-color:#C8C8C8; border-radius:25px">${p2Score}</a>`;
 	}
 	if(turn === 1) {
 		return document.getElementById("player-scores").innerHTML = 
 			`<a id="p1-score" class="player-icons" style="background-color:#C8C8C8; border-radius:25px">${p1Score}</a>
-			<a id="p1-icon" class="player-icons fas ${p1IconPic} ${p1IconColor}"></a>
+			<i id="p1-icon" class="player-icons fas ${p1IconPic} ${p1IconColor}"></i>
 			<a class="player-icons">|</a>
-			<a id="p2-icon" class="player-icons fas ${p2IconPic} ${p2IconColor}"></a>
+			<i id="p2-icon" class="player-icons fas ${p2IconPic} ${p2IconColor}"></i>
 			<a id="p2-score" class="player-icons">${p2Score}</a>`;
 	}
 	else {
 		return document.getElementById("player-scores").innerHTML =
 			`<a id="p1-score" class="player-icons">${p1Score}</a>
-			<a id="p1-icon" class="player-icons fas ${p1IconPic} ${p1IconColor}"></a>
+			<i id="p1-icon" class="player-icons fas ${p1IconPic} ${p1IconColor}"></i>
 			<a class="player-icons">|</a>
-			<a id="p2-icon" class="player-icons fas ${p2IconPic} ${p2IconColor}"></a>
+			<i id="p2-icon" class="player-icons fas ${p2IconPic} ${p2IconColor}"></i>
 			<a id="p2-score" class="player-icons">${p2Score}</a>`;
 	}
 };
@@ -323,22 +323,22 @@ $(document).ready(function(){
 	});
 
 	$(".selColorBox1").on('click', function(e){
-		p1IconColor = $(e.target).closest('i').prevObject[0].parentNode.classList[3];
+		p1IconColor = $(e.target).closest('i').prevObject[0].classList[2].toString();
 		updateDisplay();
 	});
 
 	$(".selColorBox2").on('click', function(e){
-		p2IconColor = $(e.target).closest('i').prevObject[0].parentNode.classList[3];
+		p2IconColor = $(e.target).closest('i').prevObject[0].classList[2].toString();
 		updateDisplay();
 	});
 
 	$(".selIconBox1").on('click', function(e){
-		p1IconPic = $(e.target).closest('i').prevObject[0].parentNode.classList[1];
+		p1IconPic = $(e.target).closest('i').prevObject[0].classList[2].toString();
 		updateDisplay();
 	});
 
 	$(".selIconBox2").on('click', function(e){
-		p2IconPic = $(e.target).closest('i').prevObject[0].parentNode.classList[1];
+		p2IconPic = $(e.target).closest('i').prevObject[0].classList[2].toString();
 		updateDisplay();
 	});
 
