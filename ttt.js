@@ -391,7 +391,7 @@ $(document).ready(function(){
 		column = 0;
 		row = 0;
 		winCondition = 0;
-		turn = 1;
+		turn = 0;
 		turnCount = 0;
 		p1Score = 0;
 		p2Score = 0;
