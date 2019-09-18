@@ -55,7 +55,7 @@ td {
 }
 
 td:hover {
-    background: gray;
+    background: rgb(211,211,211);
 }
 
 .color-select {
