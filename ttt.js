@@ -224,21 +224,21 @@ function updateDisplay() {
 	if(column >= row) {
 		for(let i = 0; i < boardData.length; i++) {
 			if(boardData[i].PLAYER === "X") {
-				document.getElementById('cell'+(i+1)).innerHTML = `<i class="fas ${p1IconPic} ${p1IconColor}" style="font-size:${25/column}vmin;width:${220/column}%;height:${220/row}%"></i>`;
+				document.getElementById('cell'+(i+1)).innerHTML = `<div style="margin:auto"><i class="fas ${p1IconPic} ${p1IconColor}" style="font-size:${25/column}vmin"></i></div>`;
 			}
 			if(boardData[i].PLAYER === "O") {
-				document.getElementById('cell'+(i+1)).innerHTML = `<i class="fas ${p2IconPic} ${p2IconColor}" style="font-size:${25/column}vmin;width:${220/column}%;height:${220/row}%"></i>`;
+				document.getElementById('cell'+(i+1)).innerHTML = `<div style="margin:auto"><i class="fas ${p2IconPic} ${p2IconColor}" style="font-size:${25/column}vmin"></i></div>`;
 			}
 		};
 	};
 	if(column < row) {
 		for(let i = 0; i < boardData.length; i++) {
 			if(boardData[i].PLAYER === "X") {
-				document.getElementById('cell'+(i+1)).innerHTML = `<i class="fas ${p1IconPic} ${p1IconColor}" style="font-size:${25/row}vmin;width:${220/column}%;height:${220/row}%"></i>`;
-			}
+				document.getElementById('cell'+(i+1)).innerHTML = `<div style="margin:auto"><i class="fas ${p1IconPic} ${p1IconColor}" style="font-size:${25/row}vmin"></i></div>`;
+			};
 			if(boardData[i].PLAYER === "O") {
-				document.getElementById('cell'+(i+1)).innerHTML = `<i class="fas ${p2IconPic} ${p2IconColor}" style="font-size:${25/row}vmin;width:${220/column}%;height:${220/row}%"></i>`;
-			}
+				document.getElementById('cell'+(i+1)).innerHTML = `<div style="margin:auto"><i class="fas ${p2IconPic} ${p2IconColor}" style="font-size:${25/row}vmin"></i></div>`;
+			};
 		};
 	};
 	if(turn === 2) {
