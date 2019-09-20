@@ -10,6 +10,7 @@ let p1IconPic = "fa-times";
 let p1IconColor = "select-black";
 let p2IconPic = "fa-circle";
 let p2IconColor = "select-black";
+let playVsBot = 0;
 
 function vertUp(cellid) {
 	if(boardData[cellid].RID < winCondition) {
@@ -168,8 +169,16 @@ function gameStart() {
 	
 
 	// CLICK GENERATOR
-	for(var i = 1; i < boardData.length + 1; i++) {
-		$('#cell' + i).click( cellClick(i) );
+	if(playVsBot === 0) {
+		//no bot code
+		for(var i = 1; i < boardData.length + 1; i++) {
+			$('#cell' + i).click( cellClick(i) );
+		};
+	} else {
+		//bot code
+		for(var i = 1; i < boardData.length + 1; i++) {
+			$('#cell' + i).click( cellClickBot(i) );
+		};
 	};
 
 	updateDisplay();
@@ -217,6 +226,103 @@ function cellClick(i){
 			updateDisplay();
 			return;
 		}
+	}
+};
+
+function cellClickBot(i){
+	return function(){
+		if(boardData[i-1].PLAYER !== "no-input") {
+			return
+		};
+		turnCount = turnCount + 1;
+		if(turnCount > boardData.length - 1) {
+			clearDisplay();
+			$("#draw-page").slideDown().delay(1200).slideUp();
+			gameStart();
+			turnCount = 0;
+			updateDisplay();
+			return;
+		};
+		if(turn === 1) {
+			boardData[i-1].PLAYER = "X";
+			if(winCheck(i - 1) === true) {
+				p1Score = p1Score + 1;
+				clearDisplay();
+				$("#p1-winner-page").slideDown().delay(1200).slideUp();
+				gameStart();
+				turnCount = 0;
+			};
+			turn = 2;
+			updateDisplay();
+			botMoveDelayed();
+			return;
+		};
+		if (turn === 2) {
+			boardData[i-1].PLAYER = "O";
+			updateDisplay();
+			if(winCheck(i - 1) === true) {
+				p2Score = p2Score + 1;
+				clearDisplay();
+				$("#p2-winner-page").slideDown().delay(1200).slideUp();
+				gameStart();
+				turnCount = 0;
+			};
+			turn = 1;
+			updateDisplay();
+			botMoveDelayed();
+			return;
+		}
+	}
+};
+
+function botMoveDelayed() {
+	setTimeout(botMove, 1000);
+};
+
+function botMove(){
+	let random = 4;
+
+	while(boardData[random].PLAYER !== "no-input") {
+		random = Math.floor(Math.random() * boardData.length); 
+	};
+
+	boardData[random].PLAYER = "O";
+
+	turnCount = turnCount + 1;
+	if(turnCount > boardData.length - 1) {
+		clearDisplay();
+		$("#draw-page").slideDown().delay(1200).slideUp();
+		gameStart();
+		turnCount = 0;
+		updateDisplay();
+		return;
+	};
+	if(turn === 1) {
+		boardData[random].PLAYER = "X";
+		if(winCheck(random) === true) {
+			p1Score = p1Score + 1;
+			clearDisplay();
+			$("#p1-winner-page").slideDown().delay(1200).slideUp();
+			gameStart();
+			turnCount = 0;
+		};
+		turn = 2;
+		updateDisplay();
+		return;
+	};
+	if (turn === 2) {
+		boardData[random].PLAYER = "O";
+		updateDisplay();
+		if(winCheck(random) === true) {
+			p2Score = p2Score + 1;
+			clearDisplay();
+			$("#p2-winner-page").slideDown().delay(1200).slideUp();
+			gameStart();
+			turnCount = 0;
+		};
+		turn = 1;
+		updateDisplay();
+		return;
 	}
 };
 
@@ -346,13 +452,23 @@ $(document).ready(function(){
 		column = parseInt(document.getElementById('input-columns').value);
 		row = parseInt(document.getElementById('input-rows').value);
 		winCondition = parseInt(document.getElementById('input-wincond').value);
-		if(column < 0 || row < 0 || winCondition < 0) {
+		if(column < 1 || row < 1 || winCondition < 1) {
 			$("#error-on-start").html("<h2>Variables must be greater than 0</h2>");
 			$("#error-on-start").slideDown().delay(1200).slideUp();
 			return
 		};
 		if(winCondition > column && winCondition > row) {
 			$("#error-on-start").html("<h2>Win condition not possible</h2>");
+			$("#error-on-start").slideDown().delay(1200).slideUp();
+			return
+		};
+		if($("#input-wincond").val()=== "" || $("#input-rows").val() === "" || $("#input-columns").val() === "") {
+			$("#error-on-start").html("<h2>Finish entering variables</h2>");
+			$("#error-on-start").slideDown().delay(1200).slideUp();
+			return
+		};
+		if( Number.isInteger( parseFloat( $("#input-wincond").val() + $("#input-rows").val() + $("#input-columns").val() ) ) === false) {
+			$("#error-on-start").html("<h2>Variables not integers</h2>");
 			$("#error-on-start").slideDown().delay(1200).slideUp();
 			return
 		};
@@ -399,4 +515,28 @@ $(document).ready(function(){
 		$("#settings-page").slideDown();
 	});
 
+	$("#customSwitch1").click(function(){
+		if(playVsBot === 0) {
+			playVsBot = 1;
+		} else {
+			playVsBot = 0;
+		};
+	});
+
 });
+
+function convertToTristan() {
+	let tristan = [];
+	for(let i = 0; i < 9; i++) {
+		if(boardData[i].PLAYER === "no-input") {
+			tristan.push(0);
+		};
+		if(boardData[i].PLAYER === "X") {
+			tristan.push(1);
+		};
+		if(boardData[i].PLAYER === "O") {
+			tristan.push(-1);
+		};
+	};
+	console.log(tristan);
+};
