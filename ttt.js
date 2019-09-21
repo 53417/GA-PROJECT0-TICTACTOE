@@ -185,7 +185,7 @@ function gameStart() {
 
 };
 
-function cellClick(i){
+function cellClick(i) {
 	return function(){
 		if(boardData[i-1].PLAYER !== "no-input") {
 			return
@@ -229,7 +229,7 @@ function cellClick(i){
 	}
 };
 
-function cellClickBot(i){
+function cellClickBot(i) {
 	return function(){
 		if(boardData[i-1].PLAYER !== "no-input") {
 			return
@@ -276,7 +276,7 @@ function cellClickBot(i){
 };
 
 function botMoveDelayed() {
-	setTimeout(botMove, 1000);
+	setTimeout(botMove, 500);
 };
 
 function botMove(){
@@ -285,8 +285,6 @@ function botMove(){
 	while(boardData[random].PLAYER !== "no-input") {
 		random = Math.floor(Math.random() * boardData.length); 
 	};
-
-	boardData[random].PLAYER = "O";
 
 	turnCount = turnCount + 1;
 	if(turnCount > boardData.length - 1) {
@@ -312,7 +310,6 @@ function botMove(){
 	};
 	if (turn === 2) {
 		boardData[random].PLAYER = "O";
-		updateDisplay();
 		if(winCheck(random) === true) {
 			p2Score = p2Score + 1;
 			clearDisplay();
@@ -384,7 +381,7 @@ function clearDisplay() {
 	$("#splash-page").slideUp();
 };
 
-$(document).ready(function(){
+$(document).ready(function() {
 	$("#splash-button").click(function(){  
 		clearDisplay();
 		$("#settings-page").slideDown();
