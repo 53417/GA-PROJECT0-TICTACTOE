@@ -2,7 +2,7 @@
 Tic Tac Toe
 
 
-Play: https://53417.github.io/project0TTT/#
+Play: https://53417.github.io/GA-PROJECT0-TICTACTOE/#
 
 
 Basic Requirements:
